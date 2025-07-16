@@ -1,0 +1,98 @@
+openapi: "3.0.3"
+info:
+  title: API для чата
+  version: 0.0.1
+paths:
+  /api/messages:
+    get:
+      summary: Get all messages
+      operationId: getAllMessages
+      tags:
+        - message
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MessageResponse'
+  /api/messages/send:
+    get:
+      summary: Send message
+      operationId: save
+      tags:
+        - message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMessageRequest'
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    MessageResponse:
+      type: object
+      required:
+        - id
+        - author
+        - content
+        - createdAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        author:
+          $ref: '#/components/schemas/UserResponse'
+        content:
+          type: string
+          minLength: 1
+        createdAt:
+          type: string
+          format: date-time
+    UserResponse:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        passwordHash:
+          type: string
+          minLength: 1
+    NewMessageRequest:
+      type: object
+      properties:
+        authorId:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        content:
+          type: string
+          example: "Hello, world!"
+      required:
+        - authorId
+        - content
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

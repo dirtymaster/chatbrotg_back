@@ -1,4 +1,4 @@
-package com.radmize.chatbrotg.mapper;
+package com.radmize.chatbrotg.repository;
 
 import com.radmize.chatbrotg.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
