@@ -19,7 +19,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/MessageResponse'
   /api/messages/send:
-    get:
+    post:
       summary: Send message
       operationId: save
       tags:

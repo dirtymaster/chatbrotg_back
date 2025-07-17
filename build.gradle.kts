@@ -2,8 +2,8 @@ plugins {
     java
     id("org.springframework.boot") version "3.3.1"
     id("io.spring.dependency-management") version "1.1.5"
-    id("org.hibernate.orm") version "6.5.2.Final"
-    id("org.graalvm.buildtools.native") version "0.10.2"
+//    id("org.hibernate.orm") version "6.5.2.Final"
+//    id("org.graalvm.buildtools.native") version "0.10.2"
     id("org.openapi.generator") version "6.0.1"
 }
 
@@ -37,7 +37,14 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
-    implementation("org.openapitools:openapi-generator:5.3.1")
+    implementation("org.openapitools:openapi-generator:7.14.0")
+    implementation("javax.annotation:javax.annotation-api:1.3.2")
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation("javax.validation:validation-api:2.0.1.Final")
+    // https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable
+    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compileOnly("javax.servlet:javax.servlet-api:4.0.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
@@ -63,7 +70,7 @@ tasks.withType<Test> {
 
 // openapi generator
 openApiGenerate {
-    generatorName.set("java") // Выбор генератора, например, д��я генерации Java-сервера
+    generatorName.set("spring") // Выбор генератора, например, д��я генерации Java-сервера
     inputSpec.set("$projectDir/src/main/resources/openapi.yaml") // Укажите путь к вашему OpenAPI спецификации
     outputDir.set("$projectDir/build/generated") // Путь к директории, куда будет сгенерирован код
     apiPackage.set("com.radmize.chatbrotg.api") // Укажите нужный пакет для сгенерированного API-кода
